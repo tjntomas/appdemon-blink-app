@@ -92,7 +92,7 @@ class Blink(hass.Hass):
                 key[self.ATTR_BRIGHTNESS] = await self.get_state(entity_id, attribute=self.ATTR_BRIGHTNESS)
                 key[self.ATTR_RGB_COLOR]  = await self.get_state(entity_id, attribute=self.ATTR_RGB_COLOR)
             else:
-                # If the light is "off", we turn it on for a whort while to get the brightness
+                # If the light is "off", we turn it on for a short while to get the brightness
                 # and rgb_color.
                 await self.call_service(self.LIGHT_ON_SERVICE, entity_id= entity_id)
 
