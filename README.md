@@ -43,12 +43,12 @@ blink:
   ````yaml
   type: color_loop
   color_loop: [ [255,0,0], [0,255,0] ] # Loop from red to green. You can add any number of colors to the list.
-  max_brightness: 0-255 # max _brightness is uses for all colors in the color loop.
+  max_brightness: 0-255 # max _brightness is used for all colors in the color loop.
   count: integer. Number of times the color loop is looped through.
   
   To fire the event directly from Appdaemon, use these lines:
   ````python
-event_data = {'entity_id': 'light.livingroom', 'count': 3, 'rgb_color': [255,200,100],
+event_data = {'type': 'blink', 'entity_id': 'light.livingroom', 'count': 3, 'rgb_color': [255,200,100],
                 'on_duration': 2, 'off_duration' :1, 'min_brightness': 150
                }
 self.fire_event('blink_light', **event_data)
