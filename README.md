@@ -14,8 +14,8 @@ blink:
   max_brightness: 255
   min_brightness: 180 # Avoid using zero here, it's easier on the eyes with 100-150.
   rgb_color: [255, 200, 100] # Natural light bulb color.
-  on_duration: 0.6 
-  off_duration: 0.8
+  on_duration: 2
+  off_duration: 1
   count: 4
   transition: 0
   ````
@@ -40,7 +40,7 @@ blink:
   To fire the event directly from Appdaemon, use these lines:
   ````python
 event_data = {'entity_id': 'light.livingroom', 'count': 3, 'rgb_color': [255,200,100],
-                'on_duration': 0.6, 'off_duration' :0.8, 'min_brightness': 150
+                'on_duration': 2, 'off_duration' :1, 'min_brightness': 150
                }
 self.fire_event('blink_light', **event_data)
 ````
