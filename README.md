@@ -10,6 +10,7 @@ Save the blink.py file in the apps folder and put the following in apps.yaml
 blink:
   module: blink
   class: Blink
+  type: blink
   entity_id: light.master_bedroom
   max_brightness: 255
   min_brightness: 180 # Avoid using zero here, it's easier on the eyes with 100-150.
@@ -27,6 +28,7 @@ blink:
   
   Additional data that can be passed: (all are optional)
   ````yaml
+  type: defaults to blink. The only other option is color_loop.
   entity_id: light.master_bedroom # Single light entity or a light group.
   max_brightness: 0 - 255
   min_brightness: 0 - 255
@@ -36,6 +38,13 @@ blink:
   count: 4. Number of blinks.
   transition: Decimal or integer. Transition time from off to on in seconds.
   ````
+  
+  To make a color loop, add the following keys:
+  ````yaml
+  type: color_loop
+  color_loop: [ [255,0,0], [0,255,0] ] # Loop from red to green. You can add any number of colors to the list.
+  max_brightness: 0-255 # max _brightness is uses for all colors in the color loop.
+  count: integer. Number of times the color loop is looped through.
   
   To fire the event directly from Appdaemon, use these lines:
   ````python
