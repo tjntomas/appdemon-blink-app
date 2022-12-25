@@ -37,9 +37,7 @@ blink:
   transition: Decimal or integer. Transition time from off to on in seconds.
   ````
   
-  To fire the event directly from Appdaemon,
-  
-  Use these lines:
+  To fire the event directly from Appdaemon, use these lines:
   ````python
 event_data = {'entity_id': 'light.livingroom', 'count': 3, 'rgb_color': [255,200,100],
                 'on_duration': 0.6, 'off_duration' :0.8, 'min_brightness': 150
