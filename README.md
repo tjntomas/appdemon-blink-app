@@ -41,7 +41,7 @@ blink:
   
   Use these lines:
   ````python
-event_data = {'entity_id': light.livingrrom, 'count': 3, 'rgb_color': [255,200,100],
+event_data = {'entity_id': 'light.livingroom', 'count': 3, 'rgb_color': [255,200,100],
                 'on_duration': 0.6, 'off_duration' :0.8, 'min_brightness': 150
                }
 self.fire_event('blink_light', **event_data)
