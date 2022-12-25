@@ -17,7 +17,7 @@ import asyncio
 
 # You can call the app from appdaemon with:
 # event_data = {'entity_id': light.livingrrom, 'count': 3, 'rgb_color': [255,200,100],
-#               'on_duration': 0.6, 'off_duration' :0.8, 'min_brightness': 150
+#               'on_duration': 2, 'off_duration' :1, 'min_brightness': 150
 #              }
 # self.fire_event('blink_light', **event_data)
 
@@ -54,7 +54,7 @@ class Blink(hass.Hass):
         # Uncomment the below two lines to fire a blink_light event on when the app start. 
         # This is useful for testing the default settings.
 
-        # event_data = {'count': 3, 'rgb_color': [255,200,100], 'on_duration': 0.6, 'off_duration' :0.8, 'min_brightness': 150}
+        # event_data = {'count': 3, 'rgb_color': [255,200,100], 'on_duration': 2, 'off_duration' :1, 'min_brightness': 150}
         # self.fire_event(self.EVENT_TYPE, **event_data)
 
     async def blink_lights(self, event_type, data, kwargs):
