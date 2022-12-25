@@ -1,6 +1,7 @@
 import hassapi as hass
 import asyncio
 
+
 # App to blink a light entity, either if it is a single entity
 # or a light group, and restore the previous state for each entity.
 # Call the blink app from HA by firing an event with 
@@ -17,7 +18,7 @@ import asyncio
 
 # You can call the app from appdaemon with:
 # event_data = {'entity_id': light.livingrrom, 'count': 3, 'rgb_color': [255,200,100],
-#               'on_duration': 2, 'off_duration' :1, 'min_brightness': 150
+#               'on_duration': 0.6, 'off_duration' :0.8, 'min_brightness': 150
 #              }
 # self.fire_event('blink_light', **event_data)
 
@@ -40,6 +41,9 @@ class Blink(hass.Hass):
     ATTR_MAX_BRIGHTNESS = 'max_brightness'
     ATTR_MIN_BRIGHTNESS = 'min_brightness'
     ATTR_TRANSITION     = 'transition'
+    ATTR_TYPE           = 'type'
+    ATTR_BLINK          = 'blink'
+    ATTR_COLORLOOP      = 'color_loop'
 
     async def initialize(self):
         # Make a copy of the app args.
@@ -53,8 +57,9 @@ class Blink(hass.Hass):
 
         # Uncomment the below two lines to fire a blink_light event on when the app start. 
         # This is useful for testing the default settings.
+        # Check the indenting after uncommenting.
 
-        # event_data = {'count': 3, 'rgb_color': [255,200,100], 'on_duration': 2, 'off_duration' :1, 'min_brightness': 150}
+        # event_data = {'count': 3, 'rgb_color': [255,200,100], 'on_duration': 0.6, 'off_duration' :0.8, 'min_brightness': 150}
         # self.fire_event(self.EVENT_TYPE, **event_data)
 
     async def blink_lights(self, event_type, data, kwargs):
@@ -67,6 +72,7 @@ class Blink(hass.Hass):
         count   = def_data[self.ATTR_COUNT]
         entity  = def_data[self.ATTR_ENTITY]
         state   = await self.get_state(entity)
+        type    = def_data[self.ATTR_TYPE]
         
         # Check if the light entity is a light group.
         members = await self.get_state(entity, attribute=self.ATTR_ENTITY)
@@ -92,7 +98,7 @@ class Blink(hass.Hass):
                 key[self.ATTR_BRIGHTNESS] = await self.get_state(entity_id, attribute=self.ATTR_BRIGHTNESS)
                 key[self.ATTR_RGB_COLOR]  = await self.get_state(entity_id, attribute=self.ATTR_RGB_COLOR)
             else:
-                # If the light is "off", we turn it on for a short while to get the brightness
+                # If the light is "off", we turn it on for a whort while to get the brightness
                 # and rgb_color.
                 await self.call_service(self.LIGHT_ON_SERVICE, entity_id= entity_id)
 
@@ -105,25 +111,38 @@ class Blink(hass.Hass):
             # Save the light state to the entities list.
             entities.append(key)
     
-        for x in range(count):
-            # Turn on the light with MAX__BRIGHTNESS.
-            await self.call_service(self.LIGHT_ON_SERVICE,  
-                entity_id= def_data[self.ATTR_ENTITY],
-                brightness = def_data[self.ATTR_MAX_BRIGHTNESS],
-                rgb_color=def_data[self.ATTR_RGB_COLOR],
-                transition=def_data[self.ATTR_TRANSITION])
-            
-            # Wait for ON_DURATION seconds.
-            await asyncio.sleep(def_data[self.ATTR_ON_DURATION])
+        if type == self.ATTR_BLINK:
+            for x in range(count):
+                # Turn on the light with MAX_BRIGHTNESS.
+                await self.call_service(self.LIGHT_ON_SERVICE,  
+                    entity_id= def_data[self.ATTR_ENTITY],
+                    brightness = def_data[self.ATTR_MAX_BRIGHTNESS],
+                    rgb_color=def_data[self.ATTR_RGB_COLOR],
+                    transition=def_data[self.ATTR_TRANSITION])
+                
+                # Wait for ON_DURATION seconds.
+                await asyncio.sleep(def_data[self.ATTR_ON_DURATION])
 
-            # Turn on the light with MIN_BRIGHTNESS.
-            await self.call_service(self.LIGHT_ON_SERVICE,
-                entity_id= def_data[self.ATTR_ENTITY],
-                brightness = def_data[self.ATTR_MIN_BRIGHTNESS],
-                rgb_color=def_data[self.ATTR_RGB_COLOR])
+                # Turn on the light with MIN_BRIGHTNESS.
+                await self.call_service(self.LIGHT_ON_SERVICE,
+                    entity_id= def_data[self.ATTR_ENTITY],
+                    brightness = def_data[self.ATTR_MIN_BRIGHTNESS],
+                    rgb_color=def_data[self.ATTR_RGB_COLOR])
 
-            # Wait for OFF_DURATION seconds.   
-            await asyncio.sleep(def_data[self.ATTR_OFF_DURATION])   
+                # Wait for OFF_DURATION seconds.   
+                await asyncio.sleep(def_data[self.ATTR_OFF_DURATION])   
+
+        if type == self.ATTR_COLORLOOP:
+            colorloop =  def_data[self.ATTR_COLORLOOP]
+            for x in range(count):
+                for y in range(len(colorloop)):
+                    await self.call_service(self.LIGHT_ON_SERVICE,
+                        entity_id= def_data[self.ATTR_ENTITY],
+                        brightness = def_data[self.ATTR_MAX_BRIGHTNESS],
+                        rgb_color=colorloop[y])
+                    await asyncio.sleep(def_data[self.ATTR_ON_DURATION])  
+
+
 
         for n in range(len(entities)):
             # Get previous state.
