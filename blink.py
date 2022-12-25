@@ -139,7 +139,8 @@ class Blink(hass.Hass):
                     await self.call_service(self.LIGHT_ON_SERVICE,
                         entity_id= def_data[self.ATTR_ENTITY],
                         brightness = def_data[self.ATTR_MAX_BRIGHTNESS],
-                        rgb_color=colorloop[y])
+                        rgb_color=colorloop[y],
+                        transition= def_data[self.ATTR_TRANSITION])
                     await asyncio.sleep(def_data[self.ATTR_ON_DURATION])  
 
 
@@ -162,9 +163,4 @@ class Blink(hass.Hass):
                 await self.call_service(self.LIGHT_OFF_SERVICE,
                        entity_id=entity_id)
 
-            
- 
-  
-            
-
-                
+    
