@@ -2,7 +2,7 @@
 Appdaemon app to blink lights in Home Assistant
 
 A simple app to blink a single light entity or a light group, and then restore the light to its previous state.
-If a light group is used, each individual light is retored to its previous state, even if the light was off, ie. when
+If a light group is used, each individual light is restored to its previous state, even if the light was off, ie. when
 turned on again, the color and brightness is unchanged.
 
 Save the blink.py file in the apps folder and put the following in apps.yaml
@@ -30,7 +30,7 @@ blink:
   entity_id: light.master_bedroom # Single light entity or a light group.
   max_brightness: 0 - 255
   min_brightness: 0 - 255
-  rgb_color: Alist i.e. [255, 200, 100] # Natural light bulb color.
+  rgb_color: A list i.e. [255, 200, 100] # Natural light bulb color.
   on_duration: Decimal or integer. Seconds the light is on. 
   off_duration: Decimal or integer, Seconds the light is off.
   count: 4. Number of blinks.
