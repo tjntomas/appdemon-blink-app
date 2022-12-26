@@ -55,7 +55,7 @@ class Blink(hass.Hass):
         # Listen for the HA event "blink_light".
         await self.listen_event(self.blink_lights, self.EVENT_TYPE)
 
-        # Uncomment the below two lines to fire a blink_light event on when the app start. 
+        # Uncomment the below two lines to fire a blink_light event on when the app starts. 
         # This is useful for testing the default settings.
         # Check the indenting after uncommenting.
 
@@ -63,7 +63,7 @@ class Blink(hass.Hass):
         # self.fire_event(self.EVENT_TYPE, **event_data)
 
     async def blink_lights(self, event_type, data, kwargs):
-        # Create a copy of the defalt settings.
+        # Create a copy of the default settings.
         def_data = dict(self.DEFAULT_SETTINGS)
 
         # Override any default settings with settings from the event data.
@@ -98,7 +98,7 @@ class Blink(hass.Hass):
                 key[self.ATTR_BRIGHTNESS] = await self.get_state(entity_id, attribute=self.ATTR_BRIGHTNESS)
                 key[self.ATTR_RGB_COLOR]  = await self.get_state(entity_id, attribute=self.ATTR_RGB_COLOR)
             else:
-                # If the light is "off", we turn it on for a whort while to get the brightness
+                # If the light is "off", we turn it on for a short while to get the brightness
                 # and rgb_color.
                 await self.call_service(self.LIGHT_ON_SERVICE, entity_id= entity_id)
 
