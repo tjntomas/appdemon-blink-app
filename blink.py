@@ -57,7 +57,6 @@ class Blink(hass.Hass):
 
         # Uncomment the below two lines to fire a blink_light event on when the app starts. 
         # This is useful for testing the default settings.
-        # Check the indenting after uncommenting.
 
         # event_data = {'count': 3, 'rgb_color': [255,200,100], 'on_duration': 0.6, 'off_duration' :0.8, 'min_brightness': 150}
         # self.fire_event(self.EVENT_TYPE, **event_data)
