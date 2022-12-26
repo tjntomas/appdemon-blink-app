@@ -1,5 +1,5 @@
 # appdemon-blink-app
-Appdaemon app to blink lights in Home Assistant
+An Appdaemon app to blink lights in Home Assistant.
 
 A simple app to blink a single light entity or a light group, and then restore the light to its previous state.
 If a light group is used, each individual light is restored to its previous state, even if the light was off, ie. when
@@ -47,9 +47,9 @@ blink:
   count: integer. Number of times the color loop is looped through.
   on_duration: Time between color transitions in seconds.
   transition: An integer. Must be less than on_duration.
-  
+````
   To fire the event directly from Appdaemon, use these lines:
-  ````python
+````python
 event_data = {'type': 'blink', 'entity_id': 'light.livingroom', 'count': 3, 'rgb_color': [255,200,100],
                 'on_duration': 2, 'off_duration' :1, 'min_brightness': 150
                }
