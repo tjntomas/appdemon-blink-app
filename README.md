@@ -44,7 +44,7 @@ blink:
   type: color_loop
   color_loop: [ [255,0,0], [0,255,0] ] # Loop from red to green. You can add any number of colors to the list.
   max_brightness: 0-255 # max _brightness is used for all colors in the color loop.
-  count: integer. Number of times the color loop is run.
+  count: integer. Number of times the color loop runs.
   on_duration: Time between color transitions in seconds.
   transition: An integer. Must be less than on_duration.
 ````
