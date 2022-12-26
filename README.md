@@ -33,8 +33,8 @@ blink:
   max_brightness: 0 - 255
   min_brightness: 0 - 255
   rgb_color: A list i.e. [255, 200, 100] # Natural light bulb color.
-  on_duration: Decimal or integer. Seconds the light is on. 
-  off_duration: Decimal or integer, Seconds the light is off.
+  on_duration: Decimal or integer. Number of seconds the light is on. 
+  off_duration: Decimal or integer, Number of seconds the light is off.
   count: 4. Number of blinks.
   transition: Decimal or integer. Transition time from off to on in seconds.
   ````
