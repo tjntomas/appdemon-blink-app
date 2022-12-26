@@ -9,12 +9,12 @@ import asyncio
 #   additional event data that can can be ommited or inlcuded:
 #   entity_id: a light entity_id
 #   max_brightness: 0 - 255
-#   min_brightness: 0 - 255. Its easier on the eyes not to use 0 here.
-#   on_duration: time in second the light is on.
+#   min_brightness: 0 - 255. It's easier on the eyes not to use 0 here.
+#   on_duration: time in seconds the light is on.
 #   off_duration: time in seconds the light is off.
 #   rgb_color: a list, i.e [255, 200,0]
 #   count: Number of times the light blinks.
-#   transition: Transition time in seconds.
+#   transition: Transition time in seconds. Must be less than on_duration.
 
 # You can call the app from appdaemon with:
 # event_data = {'entity_id': light.livingrrom, 'count': 3, 'rgb_color': [255,200,100],
