@@ -46,7 +46,7 @@ blink:
   max_brightness: 0-255 # max _brightness is used for all colors in the color loop.
   count: integer. Number of times the color loop is looped through.
   on_duration: Time between color transitions in seconds.
-  transition: An integer. Must be smaller than on_duration.
+  transition: An integer. Must be less than on_duration.
   
   To fire the event directly from Appdaemon, use these lines:
   ````python
